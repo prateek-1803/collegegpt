@@ -8,6 +8,8 @@ import Head from 'next/head';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import reviewsData from '../data/all.json'
 import Modal from 'react-modal';
+import ratingsData from '../data/ratings.json'
+
 
 export default function Home() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -24,12 +26,19 @@ export default function Home() {
     const [selectedCollegeReviews, setSelectedCollegeReviews] = useState([]);
     const [isSummaryVisible, setIsSummaryVisible] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
+    const [ratings, setRatings] = useState([]);
+    const [selectedCollegeRatings, setSelectedCollegeRatings] = useState([]);
     const scrollRef = useRef(null);
 
 
     useEffect(() => {
       // Fetch the reviews data from the JSON file or an API
       setReviews(reviewsData);
+    }, []);
+
+    useEffect(() => {
+      // Fetch the reviews data from the JSON file or an API
+      setRatings(ratingsData);
     }, []);
 
     const handleSearchChange = (event) => {
@@ -72,6 +81,7 @@ export default function Home() {
       const foundCollege = Object.keys(reviews).find((college) => college.toLowerCase() === searchQuery.toLowerCase());
       setSelectedCollege(foundCollege);
       setSelectedCollegeReviews(reviews[foundCollege] || []);
+      setSelectedCollegeRatings(ratings[foundCollege] || []);
       setClickCount(clickCount + 1);
     };
     const handleAttributeButtonClick = (attribute) => {
@@ -119,6 +129,7 @@ export default function Home() {
         <div className="container">
             <Head>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </Head>
           <div className="logo-container">
             <img src="https://1000logos.net/wp-content/uploads/2023/02/ChatGPT-Logo.png" alt="ChatGPT Logo" className="logo" />
@@ -182,8 +193,10 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                 </button>
                 {isSummaryVisible && (
                   <div className="popup-overlay active">
+                    
                     <div className="popup active">
                       <h2 className="popup-heading">College Summary</h2>
+                      
                       <p className="popup-content">
                         {collegeSummary}
                       </p>
@@ -216,6 +229,7 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                     </div>
                   </div>
                 )}
+              <div className="final-container">
                 <div className="reviews-container">
                   <h3 className='review-header'>Some User Reviews</h3>
                   {selectedCollegeReviews.slice(0, 5).map((review, reviewIndex) => (
@@ -225,11 +239,19 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                           <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png" alt="User Logo" className="user-logo" />
                       </div>
                       <div className="review-content">{review}</div>
-                      <div className="review-rating">Rating: 4.5/5</div>
                     </div>
                   ))}
                 </div>
-      
+                <div className="rating-container">
+                  {selectedCollegeRatings.slice(0, 5).map((rating, ratingIndex) => (
+                    
+                    <div key={ratingIndex} className="rating">
+                      <div className="rating-content">{rating}</div>
+                    </div>
+                  ))}
+                </div>
+                
+              </div>
 
                 
 
