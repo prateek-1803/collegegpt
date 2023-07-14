@@ -28,6 +28,7 @@ export default function Home() {
     const [searchResults, setSearchResults] = useState([]);
     const [ratings, setRatings] = useState([]);
     const [selectedCollegeRatings, setSelectedCollegeRatings] = useState([]);
+    const [searchClicked, setSearchClicked] = useState(false);
     const scrollRef = useRef(null);
 
 
@@ -82,6 +83,7 @@ export default function Home() {
       setSelectedCollege(foundCollege);
       setSelectedCollegeReviews(reviews[foundCollege] || []);
       setSelectedCollegeRatings(ratings[foundCollege] || []);
+      setSearchClicked(true);
       setClickCount(clickCount + 1);
     };
     const handleAttributeButtonClick = (attribute) => {
@@ -126,9 +128,8 @@ export default function Home() {
       }, [isLoading, searchResults]);
 
       return (
-        <div className="container">
+        <div className={`container ${searchClicked ? 'responsive' : ''}`}>
             <Head>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </Head>
           <div className="logo-container">
