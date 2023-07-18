@@ -67,6 +67,7 @@ export default function Home() {
       }
       
       if (selectedCollege) {
+        setSearchClicked(true);
         setIsLoading(true); // Start loading
         setCollegeSummary('');
         setCollegeAttributes({});
@@ -76,7 +77,7 @@ export default function Home() {
           setCollegeAttributes(summary || {});
           setIsLoading(false); // Stop loading
           setShowSummary(true);
-        }, 2000); // Delay for 2 seconds
+        }, 0); // Delay for 2 seconds
       } else {
         setCollegeSummary('');
         setCollegeAttributes({});
@@ -104,6 +105,11 @@ export default function Home() {
       setIsSummaryVisible(false);
     };
 
+    const scrollToBottom = () => {
+      setTimeout(() =>
+      {scrollRef.current?.scrollIntoView({ behavior: "smooth" })},2
+      );
+      }
 
     useEffect(() => {
       setShowSummary(false);
@@ -121,14 +127,10 @@ export default function Home() {
         // Store click count in localStorage whenever it changes
         localStorage.setItem('clickCount', clickCount.toString());
       }, [clickCount]);
-
       
       useEffect(() => {
-        // Scroll to the search results after the loading is done
-        if (!isLoading && searchResults.length > 0 && scrollRef.current) {
-          scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, [isLoading, searchResults]);
+        scrollToBottom()
+        }, [clickCount]);
       
       return (
         <div className={`container ${searchClicked ? 'responsive' : ''}`}>
@@ -181,12 +183,6 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
             </div>
             
           </div>
-          {isLoading && (
-              <div className="loading-container">
-                <div className="loading-spinner"></div>
-                <p className="loading-text">Loading...</p>
-              </div>
-            )}
             {selectedCollege && collegeSummary && !isLoading && (
               <div ref={scrollRef} className={`result-container ${showSummary ? 'show' : ''}`}>
                 <button className="summary-button" onClick={handleShowSummary}>
@@ -256,7 +252,7 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
               </div>
               
             )}
-
+          <div style={{ marginBottom: 100}} ref={scrollRef} />
         </div>
         
       );
