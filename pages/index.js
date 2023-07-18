@@ -164,7 +164,7 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
               </form>
               {searchQuery && suggestedColleges.length > 0 && (
                 <div className="suggestions-container">
-                  {suggestedColleges.slice(0, 20).map((college) => (
+                  {suggestedColleges.slice(0, 25).map((college) => (
                     <div
                       key={college}
                       className="suggestion"
