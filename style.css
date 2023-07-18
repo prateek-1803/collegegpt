@@ -6,6 +6,7 @@ html{
   scroll-behavior: smooth;
   width: 100%;
   align-items: center;
+  background-color: #5CDB95;
 }
 
 
@@ -51,10 +52,10 @@ body {
   }
   
   .heading {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: cursive;
     font-size: 65px;
     margin-bottom: 1.2rem;
-    color: #edf5e1; /* Update with your desired text color */
+    color: #05386b; /* Update with your desired text color */
     opacity: 0;
     animation: fadeIn 1s ease forwards;
   }
@@ -63,7 +64,7 @@ body {
     font-family: cursive;
     font-size: 30px;
     margin-bottom: 0.8rem;
-    color: #edf5e1; /* Update with your desired text color */
+    color: #05386b; /* Update with your desired text color */
     opacity: 0;
     animation: fadeIn 1s ease forwards;
   }
@@ -72,7 +73,7 @@ body {
     font-family: 'Pacifico', cursive;
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: #edf5e1; /* Update with your desired text color */
+    color: #05386b; /* Update with your desired text color */
     opacity: 0;
     animation: fadeIn 1s ease forwards;
   }
@@ -86,11 +87,63 @@ body {
     animation: fadeIn 1s ease forwards;
   }
   .content-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    grid-gap: 15px;
+    align-items: center;
+  }
+  .carousel-container {
+    background-color: #8ee4af;
+    border: 1px solid #edf5e1;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px #05386b;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .carousel-container .carousel .slide img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .carousel-container .carousel .slide {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
   }
   
+  .carousel-container .carousel .carousel-status {
+    display: none;
+  }
+
+  .carousel-container .carousel .carousel-thumbnails {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .carousel-container .carousel .carousel-thumbnails .thumbnail {
+    margin: 0 5px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  .carousel-container .carousel .carousel-thumbnails .thumbnail.selected {
+    opacity: 1;
+  }
+  
+  .carousel-container .carousel .carousel-thumbnails .thumbnail img {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px;
+  }
+  
+  .carousel-container .carousel .carousel-thumbnails .thumbnail.selected img {
+    max-height: 20px;
+  }
+
   .search-container {
     width: 500px;
     margin-top: 2rem;

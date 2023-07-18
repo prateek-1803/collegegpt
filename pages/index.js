@@ -7,8 +7,11 @@ import '../style.css'
 import Head from 'next/head';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import reviewsData from '../data/all.json'
-import Modal from 'react-modal';
 import ratingsData from '../data/ratings.json'
+import Script from 'next/script';
+// import ResponsiveCarousel from "../Carousel/Responsive";
+import MyCarousel from '../Carousel/Responsive';
+// import AdScript from './ad';
 
 
 export default function Home() {
@@ -126,15 +129,12 @@ export default function Home() {
           scrollRef.current.scrollIntoView({ behavior: 'smooth' });
         }
       }, [isLoading, searchResults]);
-
+      
       return (
         <div className={`container ${searchClicked ? 'responsive' : ''}`}>
-            <Head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-      </Head>
           <div className="logo-container">
             <img src="https://1000logos.net/wp-content/uploads/2023/02/ChatGPT-Logo.png" alt="ChatGPT Logo" className="logo" />
-            <h1 className="heading">ChatGPT Reviews</h1>
+            <h1 className="heading" >ChatGPT Reviews</h1>
             </div>
             <p className='desc-1'>
 Discover top colleges based on real user reviews. ChatGPT's ratings reflect hundreds of experiences for informed choices.</p>
@@ -162,11 +162,6 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                   </button>
                 </div>
               </form>
-              {isAdDisplayed && (
-                    <div className="ad-container">
-                    {/* Your ad content here */}
-                    </div>
-                )}
               {searchQuery && suggestedColleges.length > 0 && (
                 <div className="suggestions-container">
                   {suggestedColleges.slice(0, 20).map((college) => (
@@ -181,7 +176,12 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                 </div>
               )}
             </div>
-            {isLoading && (
+            <div className="carousel-container">
+              <MyCarousel />
+            </div>
+            
+          </div>
+          {isLoading && (
               <div className="loading-container">
                 <div className="loading-spinner"></div>
                 <p className="loading-text">Loading...</p>
@@ -190,20 +190,20 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
             {selectedCollege && collegeSummary && !isLoading && (
               <div ref={scrollRef} className={`result-container ${showSummary ? 'show' : ''}`}>
                 <button className="summary-button" onClick={handleShowSummary}>
-                  Show Summary
+                  CLICK to view ChatGPT's Review
                 </button>
                 {isSummaryVisible && (
                   <div className="popup-overlay active">
                     
                     <div className="popup active">
-                      <h2 className="popup-heading">College Summary</h2>
+                      <h2 className="popup-heading">Review</h2>
                       
                       <p className="popup-content">
                         {collegeSummary}
                       </p>
                       {Object.keys(collegeAttributes).length > 0 && (
             <div className="attributes-container">
-                <h3 className="attributes-heading">Attributes</h3>
+                <h3 className="attributes-heading">Ratings</h3>
                 <div className="attribute-buttons">
                 {Object.entries(collegeAttributes)
                     .filter(([key]) => key !== 'Summary')
@@ -253,14 +253,11 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                 </div>
                 
               </div>
-
-                
-
               </div>
+              
             )}
-          </div>
-          
-          
+
         </div>
+        
       );
 }      
