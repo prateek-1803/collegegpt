@@ -28,10 +28,13 @@
             showThumbs={false}
           >
             <div>
-                <img src="https://i.ibb.co/7GVmztw/Top-5.jpg" alt="Top 5" className="carousel-image"  />
+                <img src="https://i.ibb.co/qCvL0jr/imgrev1.png" alt="Top 5" className="carousel-image"  />
             </div>
             <div>
-                <img src="https://i.ibb.co/z7tPZmM/highest-reviews.png" alt="Hishest_Reviews" className="carousel-image" />
+                <img src="https://i.ibb.co/dPbVQyr/imgrev2.png" alt="Hishest_Reviews" className="carousel-image" />
+            </div>
+            <div>
+                <img src="https://i.ibb.co/nw6ygVS/imgrev3.png" alt="Highest_9.5rating" className='carousel-image' />
             </div>
             <div>
                 <img src="https://i.ibb.co/3kq5Bsd/wordcloud.png" alt="WordCloud" className="carousel-image" />

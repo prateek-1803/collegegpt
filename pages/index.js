@@ -82,6 +82,7 @@ export default function Home() {
         setCollegeSummary('');
         setCollegeAttributes({});
         setShowSummary(true);
+        setSearchClicked(false);
       }
       const foundCollege = Object.keys(reviews).find((college) => college.toLowerCase() === searchQuery.toLowerCase());
       setSelectedCollege(foundCollege);
@@ -215,8 +216,8 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                     </div>
                     <div className="attribute-content">
                     {collegeAttributes[selectedAttribute] && (
-                        <p className="attribute-value">{collegeAttributes[selectedAttribute]}</p>
-                    )}
+                        <p className="attribute-value">ChatGPT's rating for {selectedAttribute} is :<br></br><b>{collegeAttributes[selectedAttribute]}</b></p>
+                    )}  
                     </div>
                 </div>  
                 )}
