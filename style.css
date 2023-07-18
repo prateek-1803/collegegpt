@@ -660,7 +660,13 @@ body {
       @apply p-2;
       margin-left: 0px;
     }
-  
+
+    .content-container{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .heading {
       @apply text-3xl mb-2;
     }
