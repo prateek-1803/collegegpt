@@ -4,6 +4,7 @@
     // import { Carousel } from 'react-bootstrap';
     import { Carousel } from "react-responsive-carousel";
     import "react-responsive-carousel/lib/styles/carousel.min.css";
+    import Image from 'next/image';
     // import styles from "../styles/Responsive.module.css";
 
     const MyCarousel = () => {
@@ -27,13 +28,13 @@
             showThumbs={false}
           >
             <div>
-                <img src="https://i.ibb.co/7GVmztw/Top-5.jpg" alt="Top 5" className="carousel-image" />
+                <img src="https://i.ibb.co/7GVmztw/Top-5.jpg" alt="Top 5" className="carousel-image"  />
             </div>
             <div>
-                <img src="https://i.ibb.co/z7tPZmM/highest-reviews.png" alt="Hishest_Reviews" className="carousel-image"/>
+                <img src="https://i.ibb.co/z7tPZmM/highest-reviews.png" alt="Hishest_Reviews" className="carousel-image" />
             </div>
             <div>
-                <img src="https://i.ibb.co/3kq5Bsd/wordcloud.png" alt="Hishest_Reviews" className="carousel-image"/>
+                <img src="https://i.ibb.co/3kq5Bsd/wordcloud.png" alt="WordCloud" className="carousel-image" />
             </div>
           </Carousel>
       );
