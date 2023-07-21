@@ -32,7 +32,6 @@ html{
 
   
 body {
-    font-family: 'Arial', sans-serif;
     background-image: url('https://img.freepik.com/free-vector/gradient-background-green-modern-designs_343694-2067.jpg');
     /* background-color: #5CDB95; */
     background-size: cover;
@@ -399,7 +398,9 @@ body {
     margin-bottom: 8px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
-  
+  .rating-container{
+    margin-top: 110px;
+  }
   .rating{
     background-color:#edf5e1;
     padding: 15px;
@@ -570,7 +571,11 @@ body {
     .suggestions-container {
       @apply max-h-32;
     }
-  
+
+    .rating-container{
+      margin-top: 80px;
+    }
+
     .result-container {
       @apply p-4;
     }
@@ -631,7 +636,7 @@ body {
     }
     .rating {
       @apply w-12 h-12 mb-2;
-      margin-top: 108px;
+      margin-top: 110px;
     }
   
     .rating-content {
@@ -767,9 +772,13 @@ body {
     }
     .rating {
       @apply w-12 h-12 mb-2;
-      margin-top: 108px;
+      margin-top: 120px;
     }
-  
+    
+    .rating-container{
+      margin-top: 140px;
+    }
+
     .rating-content {
       font-size: 14px;
     }

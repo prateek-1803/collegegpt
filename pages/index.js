@@ -2,36 +2,37 @@ import React from 'react';
 import Typewriter from 'typewriter-effect';
 import { useState, useEffect, useRef } from 'react';
 import collegesData from '../data/colleges.json';
-import summariesData from '../data/summaries.json';
+// import summariesData from '../data/summaries.json';
 import '../style.css'
-import Head from 'next/head';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import reviewsData from '../data/all.json'
 import ratingsData from '../data/ratings.json'
-import Script from 'next/script';
-// import ResponsiveCarousel from "../Carousel/Responsive";
 import MyCarousel from '../Carousel/Responsive';
-// import AdScript from './ad';
+// import fs from 'fs';
+import path from 'path';
+import { useRouter } from 'next/router';
 
 
-export default function Home() {
+const summariesFilePath = path.join(process.cwd(), 'data', 'summaries.json')
+
+
+export default function Home({ summary }) {
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCollege, setSelectedCollege] = useState('');
     const [collegeSummary, setCollegeSummary] = useState('');
-    const [collegeAttributes, setCollegeAttributes] = useState({});
     const [suggestedColleges, setSuggestedColleges] = useState([]);
     const [showSummary, setShowSummary] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
     const [selectedAttribute, setSelectedAttribute] = useState('');
     const [isAdDisplayed, setIsAdDisplayed] = useState(false);
     const [clickCount, setClickCount] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [selectedCollegeReviews, setSelectedCollegeReviews] = useState([]);
     const [isSummaryVisible, setIsSummaryVisible] = useState(false);
-    const [searchResults, setSearchResults] = useState([]);
     const [ratings, setRatings] = useState([]);
     const [selectedCollegeRatings, setSelectedCollegeRatings] = useState([]);
     const [searchClicked, setSearchClicked] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const scrollRef = useRef(null);
 
 
@@ -50,40 +51,49 @@ export default function Home() {
         setSearchQuery(query);
         setSelectedCollege('');
         setCollegeSummary('');
-        setCollegeAttributes({});
         setSuggestedColleges([]);
     
-        const filteredColleges = collegesData.filter((college) =>
-          college.toLowerCase().includes(query.toLowerCase())
-        );
+        const filteredColleges = collegesData
+        .filter((college) => college.toLowerCase().includes(query.toLowerCase()))
+        .sort((a, b) => {
+          const lowerCaseQuery = query.toLowerCase();
+          const aLower = a.toLowerCase();
+          const bLower = b.toLowerCase();
+
+          const aStartsWithQuery = aLower.startsWith(lowerCaseQuery);
+          const bStartsWithQuery = bLower.startsWith(lowerCaseQuery);
+
+          if (aStartsWithQuery && !bStartsWithQuery) {
+            return -1; 
+          }
+          if (!aStartsWithQuery && bStartsWithQuery) {
+            return 1; 
+          }
+          return a.localeCompare(b); 
+        });
         setSuggestedColleges(filteredColleges);
       };
   
-    const handleSearchSubmit = (event) => {
+    const handleSearchSubmit = async (event) => {
       event.preventDefault();
-
-      if (clickCount === 1) {
-        setIsAdDisplayed(true);
-      }
+      setSelectedCollege(searchQuery);
+      setCollegeSummary('');
+      setSuggestedColleges([]);
+      router.push(`/?college=${encodeURIComponent(searchQuery)}`);
       
       if (selectedCollege) {
-        setSearchClicked(true);
-        setIsLoading(true); // Start loading
-        setCollegeSummary('');
-        setCollegeAttributes({});
-        setTimeout(() => {
-          const summary = summariesData[selectedCollege];
+          setIsLoading(true);
           setCollegeSummary(summary && summary.Summary ? summary.Summary : 'Summary not found.');
-          setCollegeAttributes(summary || {});
-          setIsLoading(false); // Stop loading
-          setShowSummary(true);
-        }, 0); // Delay for 2 seconds
+          setTimeout(() => {
+            
+            setIsLoading(false); // Stop loading
+            setShowSummary(true);
+          }, 1000);
       } else {
-        setCollegeSummary('');
-        setCollegeAttributes({});
         setShowSummary(true);
         setSearchClicked(false);
       }
+
       const foundCollege = Object.keys(reviews).find((college) => college.toLowerCase() === searchQuery.toLowerCase());
       setSelectedCollege(foundCollege);
       setSelectedCollegeReviews(reviews[foundCollege] || []);
@@ -91,6 +101,7 @@ export default function Home() {
       setSearchClicked(true);
       setClickCount(clickCount + 1);
     };
+
     const handleAttributeButtonClick = (attribute) => {
         setSelectedAttribute(attribute);
       };
@@ -98,10 +109,18 @@ export default function Home() {
       setSearchQuery(college);
       setSelectedCollege(college);
     };
-    const handleShowSummary = () => {
-      setIsSummaryVisible(true);
+    
+    const handleShowSummary = async () => {
+      try {
+        const response = await fetch(`/api/summary?college=${selectedCollege}`);
+        const data = await response.json();
+        const collegeSummary = data.summary;
+        setCollegeSummary(collegeSummary);
+        setIsSummaryVisible(true);
+      } catch (error) {
+        console.error("ERROR");
+      }
     };
-  
     const handleCloseSummary = () => {
       setIsSummaryVisible(false);
     };
@@ -130,7 +149,9 @@ export default function Home() {
       }, [clickCount]);
       
       useEffect(() => {
-        scrollToBottom()
+        setTimeout(() => {
+         scrollToBottom()
+        },1100);
         }, [clickCount]);
       
       return (
@@ -178,6 +199,12 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                   ))}
                 </div>
               )}
+              {isLoading && (
+              <div className="loading-container">
+                <div className="loading-spinner"></div>
+                <p className="loading-text">Reviewing...</p>
+              </div>
+            )}
             </div>
             <div className="carousel-container">
               <MyCarousel />
@@ -195,14 +222,17 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                     <div className="popup active">
                       <h2 className="popup-heading">Review</h2>
                       
-                      <p className="popup-content">
-                        {collegeSummary}
-                      </p>
-                      {Object.keys(collegeAttributes).length > 0 && (
+                      {collegeSummary && collegeSummary.Summary ? (
+                        <p className="popup-content">{collegeSummary.Summary}</p>
+                      ) : (
+                        <p className="popup-content">Summary not found.</p>
+                      )}
+
+                      {Object.keys(collegeSummary).length > 0 && (
             <div className="attributes-container">
                 <h3 className="attributes-heading">Ratings</h3>
                 <div className="attribute-buttons">
-                {Object.entries(collegeAttributes)
+                {Object.entries(collegeSummary)
                     .filter(([key]) => key !== 'Summary')
                     .map(([attribute, value]) => (
                     <button
@@ -215,8 +245,8 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                     ))}
                     </div>
                     <div className="attribute-content">
-                    {collegeAttributes[selectedAttribute] && (
-                        <p className="attribute-value">ChatGPT's rating for {selectedAttribute} is :<br></br><b>{collegeAttributes[selectedAttribute]}</b></p>
+                    {collegeSummary[selectedAttribute] && (
+                        <p className="attribute-value">ChatGPT's rating for {selectedAttribute} is :<br></br><b>{collegeSummary[selectedAttribute]}</b></p>
                     )}  
                     </div>
                 </div>  
@@ -230,6 +260,7 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
               <div className="final-container">
                 <div className="reviews-container">
                   <h3 className='review-header'>Some User Reviews</h3>
+                  <p className='review-header'>Some reviews may be redundant due to user uploading the same review multiple times. Some ChatGPT reviews are larger than others</p>
                   {selectedCollegeReviews.slice(0, 5).map((review, reviewIndex) => (
                     
                     <div key={reviewIndex} className="review">
@@ -258,3 +289,27 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
         
       );
 }      
+
+export async function getServerSideProps(context) {
+  const { college } = context.query;
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/summary?college=${college}`);
+    const summary = await response.json();
+
+    return {
+      props: {
+        selectedCollege: college || '',
+        summary: summary || {},
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching summary data:', error);
+    return {
+      props: {
+        selectedCollege: college || '',
+        summary: {},
+      },
+    };
+  }
+}
