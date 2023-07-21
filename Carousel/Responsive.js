@@ -30,16 +30,16 @@
             showThumbs={false}
           >
             <div>
-                <Image src="/images/imgrev1.png" width="650" height="2500" />
+                <Image src="/images/imgrev1.png" priority={true} alt = "top 5 colleges" width="650" height="2500" />
             </div>
             <div>
-                <Image src="/images/imgrev2.png" width="650" height="2500" />   
+                <Image src="/images/imgrev2.png" width="650" alt = "Highest reviews" height="2500" />   
             </div>
             <div>
-                <Image src="/images/imgrev3.png" width="650" height="2500" />
+                <Image src="/images/imgrev3.png" width="650" alt = "Most 9.5+ rating" height="2500" />
             </div>
             <div>
-                <img src="/images/wordcloud.png" className="wordcloud"/>
+                <img src="/images/wordcloud.png" alt = "Most frequent topics" className="wordcloud"/>
             </div>
           </Carousel>
       );
