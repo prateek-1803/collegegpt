@@ -160,8 +160,7 @@ export default function Home({ summary }) {
             <img src="https://1000logos.net/wp-content/uploads/2023/02/ChatGPT-Logo.png" alt="ChatGPT Logo" className="logo" />
             <h1 className="heading" >ChatGPT Reviews</h1>
             </div>
-            <p className='desc-1'>
-Discover top colleges based on real user reviews. ChatGPT's ratings reflect hundreds of experiences for informed choices.</p>
+            <p className="desc-1">Discover top colleges based on real user reviews. ChatGPT ratings reflect hundreds of experiences for informed choices.</p>
           <p className="description">Get to know...</p>
           <Typewriter
             options={{
@@ -213,9 +212,7 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
           </div>
             {selectedCollege && collegeSummary && !isLoading && (
               <div ref={scrollRef} className={`result-container ${showSummary ? 'show' : ''}`}>
-                <button className="summary-button" onClick={handleShowSummary}>
-                  CLICK to view ChatGPT's Review
-                </button>
+                <button className="summary-button" onClick={handleShowSummary}>CLICK to view ChatGPT&apos;s Review</button>
                 {isSummaryVisible && (
                   <div className="popup-overlay active">
                     
@@ -246,14 +243,12 @@ Discover top colleges based on real user reviews. ChatGPT's ratings reflect hund
                     </div>
                     <div className="attribute-content">
                     {collegeSummary[selectedAttribute] && (
-                        <p className="attribute-value">ChatGPT's rating for {selectedAttribute} is :<br></br><b>{collegeSummary[selectedAttribute]}</b></p>
+                        <p className="attribute-value">ChatGPT&apos;s rating for {selectedAttribute} is :<br></br><b>{collegeSummary[selectedAttribute]}</b></p>
                     )}  
                     </div>
                 </div>  
                 )}
-                      <button className="popup-close-button" onClick={handleCloseSummary}>
-                        Close
-                      </button>
+                      <button className="popup-close-button" onClick={handleCloseSummary}>Close</button>
                     </div>
                   </div>
                 )}
