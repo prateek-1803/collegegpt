@@ -157,7 +157,7 @@ export default function Home({ summary }) {
       return (
         <div className={`container ${searchClicked ? 'responsive' : ''}`}>
           <div className="logo-container">
-            <img src="https://1000logos.net/wp-content/uploads/2023/02/ChatGPT-Logo.png" alt="ChatGPT Logo" className="logo" />
+            <img fetchpriority="high" src="https://1000logos.net/wp-content/uploads/2023/02/ChatGPT-Logo.png" alt="ChatGPT Logo" className="logo" />
             <h1 className="heading" >ChatGPT Reviews</h1>
             </div>
             <p className="desc-1">Discover top colleges based on real user reviews. ChatGPT ratings reflect hundreds of experiences for informed choices.</p>
@@ -260,7 +260,7 @@ export default function Home({ summary }) {
                     
                     <div key={reviewIndex} className="review">
                       <div className="user-logo-container">
-                          <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png" alt="User Logo" className="user-logo" />
+                          <img src="/images/User.webp" alt="User Logo" className="user-logo" />
                       </div>
                       <div className="review-content">{review}</div>
                     </div>
@@ -289,7 +289,7 @@ export async function getServerSideProps(context) {
   const { college } = context.query;
 
   try {
-    const response = await fetch(`http://localhost:3000/api/summary?college=${college}`);
+    const response = await fetch(`https://collegegpt-flame.vercel.app/api/summary?college=${college}`);
     const summary = await response.json();
 
     return {

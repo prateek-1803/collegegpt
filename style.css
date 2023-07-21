@@ -32,7 +32,7 @@ html{
 
   
 body {
-    background-image: url('https://img.freepik.com/free-vector/gradient-background-green-modern-designs_343694-2067.jpg');
+    background-image: url('/images/background.avif');
     /* background-color: #5CDB95; */
     background-size: cover;
     background-position: center;
@@ -51,7 +51,7 @@ body {
   }
   
   .heading {
-    font-family: cursive;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 65px;
     margin-bottom: 1.2rem;
     color: #05386b; /* Update with your desired text color */
@@ -60,7 +60,7 @@ body {
   }
 
   .desc-1{
-    font-family: cursive;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 30px;
     margin-bottom: 0.8rem;
     color: #05386b; /* Update with your desired text color */
@@ -69,7 +69,7 @@ body {
   }
 
   .description {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     color: #05386b; /* Update with your desired text color */
@@ -78,7 +78,7 @@ body {
   }
   
   .Typewriter{
-    font-family: 'Pacifico', cursive;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     color: #05386b; /* Update with your desired text color */
@@ -121,7 +121,7 @@ body {
     justify-content: center;
     align-items: center;
   }
-  
+ 
   .carousel-container .carousel .carousel-thumbnails .thumbnail {
     margin: 0 5px;
     cursor: pointer;
@@ -268,7 +268,7 @@ body {
 
   
   .result-container {
-    background-image: url('https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm218-beer-04.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=15d3f47257620daf66755ef6aea9ae12');
+    background-image: url('/images/resultbackground.jpeg');
     /* background-color: #05386b; */
   }
   

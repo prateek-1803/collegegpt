@@ -5,6 +5,7 @@
     import { Carousel } from "react-responsive-carousel";
     import "react-responsive-carousel/lib/styles/carousel.min.css";
     import Image from 'next/image';
+    import '../style.css'
     // import styles from "../styles/Responsive.module.css";
 
     const MyCarousel = () => {
@@ -18,26 +19,27 @@
     //   const { responsive } = items;
       return (
           <Carousel autoPlay
-            interval={7000} 
+            interval={6000} 
             selectedItem={currentSlide}
             onChange={handleOnSelect}
             showArrows={true}
             showIndicators={true}
             infiniteLoop={true}
             dynamicHeight={false}
+            dynamicWidth={true}
             showThumbs={false}
           >
             <div>
-                <img src="https://i.ibb.co/qCvL0jr/imgrev1.png" alt="Top 5" className="carousel-image"  />
+                <Image src="/images/imgrev1.png" width="650" height="2500" />
             </div>
             <div>
-                <img src="https://i.ibb.co/dPbVQyr/imgrev2.png" alt="Hishest_Reviews" className="carousel-image" />
+                <Image src="/images/imgrev2.png" width="650" height="2500" />   
             </div>
             <div>
-                <img src="https://i.ibb.co/nw6ygVS/imgrev3.png" alt="Highest_9.5rating" className='carousel-image' />
+                <Image src="/images/imgrev3.png" width="650" height="2500" />
             </div>
             <div>
-                <img src="https://i.ibb.co/3kq5Bsd/wordcloud.png" alt="WordCloud" className="carousel-image" />
+                <img src="/images/wordcloud.png" className="wordcloud"/>
             </div>
           </Carousel>
       );
