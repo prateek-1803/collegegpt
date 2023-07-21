@@ -161,7 +161,14 @@ export default function Home({ summary }) {
             <h1 className="heading" >ChatGPT Reviews</h1>
             </div>
             <p className="desc-1">Discover top colleges based on real user reviews. ChatGPT ratings reflect hundreds of experiences for informed choices.</p>
-          <p className="description">Get to know what ChatGPT&apos;s opinion about a college.</p>
+          <p className="description">Get to know...</p>
+          <Typewriter
+            options={{
+              strings: ['What ChatGPT has to say...', 'About a college.'],
+              autoStart: true,
+              loop: true,
+            }}
+          />
           <div className="content-container">
             <div className="search-container">
               <form className="search-form" onSubmit={handleSearchSubmit}>
